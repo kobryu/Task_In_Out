@@ -1,0 +1,53 @@
+
+  <div class='container px-5 px-sm-0'>
+    <div class='row'>
+      <div class='col-md-3'>
+        <h2>User info</h2>
+        <table class='table'>
+          <tr>
+        	  <th>名前</th>
+        	  <th><%= current_user.full_name %></th>
+          </tr>
+          <tr>
+        	  <th>備考</th>
+        	  <th><%= current_user.introduction %></th>
+          </tr>
+        </table>
+
+        <div class='row'>
+          <%= link_to users_mypage_edit_path, class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-cog"></i>
+          <% end %>
+        </div>
+      </div>
+      <div class='col-md-8'>
+        <table class='table'>
+          <thead>
+            <tr>
+            <th>ID</th>
+        		<th>名前</th>
+        		<th>フリガナ</th>
+        		<th>メールアドレス</th>
+        		<th>電話番号</th>
+        		<th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.full_name %></td>
+                <td><%= user.full_name_kana %></td>
+                <td><%= user.email %></td>
+                <td><%= user.telephone_number %></td>
+                <td><%= user.introduction %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

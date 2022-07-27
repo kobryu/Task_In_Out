@@ -1,0 +1,26 @@
+<div class='container px-5 px-sm-0'>
+ <div class='col-md-8'>
+        <table class='table'>
+          <thead>
+            <tr>
+            <th>ID</th>
+        		<th>名前</th>
+        		<th>フリガナ</th>
+        		<th>メールアドレス</th>
+        		<th>電話番号</th>
+        		<th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td><%= @user.id %></td>
+                <td><%= @user.full_name %></td>
+                <td><%= @user.full_name_kana %></td>
+                <td><%= @user.email %></td>
+                <td><%= @user.telephone_number %></td>
+                <td><%= @user.introduction %></td>
+              </tr>
+          </tbody>
+        </table>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<section class="inner">
+	<h3>編集</h3>
+	<%= form_with model:@genre, url: genre_path(@genre) do |f| %>
+	<%= f.label :name, "ジャンル名:" %>
+	<%= f.text_field :name %>
+	<%= f.submit '更新', class: "btn btn-primary ml2" %>
+<% end %>
+</section>

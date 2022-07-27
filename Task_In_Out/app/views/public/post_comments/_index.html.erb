@@ -1,0 +1,14 @@
+<table>
+  <tbody>
+      <% task.post_comments.each do |post_comment| %>
+      <tr>
+        <td><%= post_comment.comment %></td>
+        <td>
+          <% if post_comment.user == current_user %>
+            <%= link_to "Destroy", task_post_comment_path(task, post_comment), method: :delete, class: "btn btn-danger pull-right" %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

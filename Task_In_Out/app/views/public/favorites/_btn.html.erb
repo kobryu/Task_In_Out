@@ -1,0 +1,11 @@
+<% if task.favorited_by?(current_user) %>
+  <%= link_to task_favorites_path(task), method: :delete do %>
+    <i class="fas fa-check" aria-hidden="true" style="color: green;"></i>
+    <%= task. favorites.count %>
+  <% end %>
+<% else %>
+  <%= link_to task_favorites_path(task), method: :post do %>
+    <i class="fas fa-check" aria-hidden="true" style="color: grey;"> </i>
+    <%= task. favorites.count %>
+  <% end %>
+<% end %>
