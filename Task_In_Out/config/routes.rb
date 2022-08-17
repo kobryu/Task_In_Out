@@ -5,12 +5,15 @@ Rails.application.routes.draw do
 # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
-
   }
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update]
     get 'tasks' => 'tasks#index'
+    resources :tasks, only: [:index, :show, :destroy] do
+      resources :post_comments, only: [:destroy]
+    end
+
   end
 
   devise_for :users,skip: [:passwords], controllers: {
@@ -26,20 +29,20 @@ Rails.application.routes.draw do
     get "users/confirm" => "users#confirm"
     patch "users/withdraw" => "users#withdraw"
     patch "users/update" => "users#update"
-    resources :tasks, only: [:index, :show, :create, :edit, :update, :destroy] do
+    resources :tasks, only: [:new, :index, :show, :create, :edit, :update, :destroy] do
       collection do
       get 'search'
       end
       resources :post_comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
+    get 'favorites' => 'favorites#index'
     post '/tasks/:id' => 'tasks#done',   as: 'done'
     resources :groups, only: [:index, :show, :create, :edit, :update] do
       resource :group_users, only: [:create, :destroy]
     end
-    resources :genres, only: [:index, :create, :edit, :update, :destroy]
+    resources :genres, only: [:index, :create, :edit, :update, :show, :destroy]
   end
   root to: 'homes#top'
-  get 'homes/about'
 
 end

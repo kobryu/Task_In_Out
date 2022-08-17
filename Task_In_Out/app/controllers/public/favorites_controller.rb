@@ -1,5 +1,9 @@
 class Public::FavoritesController < ApplicationController
 
+  def index
+    @favorites = Favorite.where(user_id: current_user.id)
+  end
+
   def create
     task = Task.find(params[:task_id])
     @favorite = current_user.favorites.new(task_id: task.id)

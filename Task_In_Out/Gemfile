@@ -71,3 +71,5 @@ gem 'ransack'
 group :development, :test do
   gem 'faker'
 end
+
+gem 'faker'

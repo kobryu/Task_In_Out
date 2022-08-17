@@ -1,0 +1,37 @@
+
+<div class ="container">
+  <h2>Search results</h2>
+    <table id="dtBasicExample" class="table" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+        	<th class="th-sm">ID
+        	</th>
+          <th class="th-sm">Subject
+          <th class="th-sm">Content
+          </th>
+          <th class="th-sm">Due_date
+          </th>
+          <th class="th-sm">In charge
+          </th>
+          <th class="th-sm">function
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+    			<% @genre.tasks.each do |task| %>
+    				<tr>
+    					<td><%= task.id %></td>
+    					<td ><%= task.title %></td>
+    					<td><%= task.body %></td>
+    					<td><%= task.due_date %></td>
+    					<td><%= task.person_name %></td>
+    					<td>
+    						<%= link_to "詳細", task_path(task), class: "btn btn-primary" %>
+    					</td>
+    				</tr>
+    			<% end %>
+      		</tbody>
+    		</table>
+
+  <%= link_to 'Lists', genres_path %>
+</div>

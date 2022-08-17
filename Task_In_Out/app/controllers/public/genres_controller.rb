@@ -16,6 +16,9 @@ class Public::GenresController < ApplicationController
       render :index
     end
   end
+  def show
+    @genre = Genre.find(params[:id])
+  end
 
   def edit
   end

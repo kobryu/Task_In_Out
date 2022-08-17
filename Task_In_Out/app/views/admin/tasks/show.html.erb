@@ -1,0 +1,44 @@
+<div style="margin-top : 100px"></div>
+<div class='container_fluid'>
+  <h2>タスク詳細</h2>
+  <table id="dtBasicExample" class="table" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+        	<th class="th-sm">ID
+        	</th>
+          <th class="th-sm">件名
+        	</th>
+          <th class="th-sm">ジャンル
+        	</th>
+          <th class="th-sm">内容
+          </th>
+          <th class="th-sm">納期
+          </th>
+          <th class="th-sm">担当者
+          </th>
+          <th class="th-sm">機能
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+    				<tr>
+    					<td><%= @task.id %></td>
+    					<td ><%= @task.title %></td>
+    					<td><%= Genre.find(@task.genre_id).name %></td>
+    					<td><%= @task.body %></td>
+    					<td><%= @task.due_date %></td>
+    					<td><%= @task.person_name %></td>
+    					<td>
+    						コメント数: <%= @task.post_comments.count %>
+    						<%= link_to "削除", admin_task_path(@task), method: :delete, "data-confirm" => "削除します。本当によろしいですか？", class: "btn btn-danger" %>
+    					</td>
+    				</tr>
+    </tbody>
+  </table>
+      <div class="post-comments-index">
+        <%= render "admin/post_comments/index", task: @task %>
+      </div>
+
+    </div>
+<%= link_to '一覧へ', admin_tasks_path %>
+</div>

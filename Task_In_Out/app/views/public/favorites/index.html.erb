@@ -1,0 +1,33 @@
+<div ="container">
+   <table id="dtBasicExample" class="table" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+          	<th class="th-sm">ID
+          	</th>
+            <th class="th-sm">件名
+          	</th>
+            <th class="th-sm">ジャンル
+          	</th>
+            <th class="th-sm">内容
+            </th>
+            <th class="th-sm">納期
+            </th>
+            <th class="th-sm">担当者
+            </th>
+          </tr>
+      </thead>
+      <tbody>
+          <% @favorites.each do |favorite| %>
+    				<tr>
+      				<td><%= favorite.task.id %></td>
+      				<td ><%=favorite.task.title %></td>
+      				<td><%= Genre.find(favorite.task.genre_id).name %></td>
+      				<td><%= favorite.task.body %></td>
+      				<td><%= favorite.task.due_date %></td>
+      				<td><%= favorite.task.person_name %></td>
+    				</tr>
+      		<% end %>
+      	</tbody>
+    </table>
+  <%= link_to '一覧へ', genres_path %>
+  </div>

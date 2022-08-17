@@ -1,0 +1,15 @@
+<h6>コメント一覧</h6>
+<table>
+  <tbody>
+      <% task.post_comments.each do |post_comment| %>
+      <tr>
+        <td><%= post_comment.comment %></td>
+        <td>
+          <% if admin_signed_in? %>
+            <%= link_to "Destroy", admin_task_post_comment_path(task, post_comment), method: :delete, class: "btn btn-danger pull-right" %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

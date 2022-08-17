@@ -1,42 +1,40 @@
+<div class='container-fluid'>
+	<div class='row margin'>
+	<div class="col-md-10">
+	<h1><b>Task list</b></h1>
+	</div>
+	<div class="col-md-2">
+		<form class="form-inline mt-2 mt-md-0">
+			<%= search_form_for @q, url: search_tasks_path do |f| %>
+			  <%= f.search_field :title_cont, class: "form-control mr-sm-2"%>
+			  <span class="input-group-btn">
+				  <%= f.submit 'search',class: "btn btn-info" %>
+			  </span>
+		    <% end %>
+		</form>
+	</div>
 
-<div class='container'>
-
-	<div class='row'>
-		<div class="col-md-8"><span><h1>タスク一覧</h1></span></div>
-		<div class="col-md-6">
-				<form class="form-inline mt-2 mt-md-0">
-				<%= search_form_for @q, url: search_tasks_path do |f| %>
-				  <%= f.search_field :title_cont, class: "form-control mr-sm-2"%>
-				  <span class="input-group-btn">
-					  <%= f.submit '検索',class: "btn btn-outline-success" %>
-				   </span>
-			  <% end %>
-			   </form>
-		</div>
-       
-		<div class="col-md-13">
-			<%= render 'form', task: @task %>
-				<table id="dtBasicExample" class="table" cellspacing="0" width="100%">
+		<div class="col-md-12">
+			<table id="dtBasicExample" class="table" cellspacing="0" width="100%">
 			  <thead>
 			    <tr>
-			    	<th class="th-sm">ID
+			      <th class="th-sm">ID
 			    	</th>
-			      <th class="th-sm">件名
+			      <th class="th-sm">Subject
 			    	</th>
-			      <th class="th-sm">ジャンル
+			      <th class="th-sm">Genre
 			    	</th>
-			      <th class="th-sm">内容
+			      <th class="th-sm">Content
 			      </th>
-			      <th class="th-sm">納期
+			      <th class="th-sm">Due date
 			      </th>
-			      <th class="th-sm">担当者
+			      <th class="th-sm">In charge
 			      </th>
-			      <th class="th-sm">機能
+			      <th class="th-sm">Function
 			      </th>
-
 			    </tr>
 			  </thead>
-				<tbody>
+				<tbody class="example">
 					<% @tasks.order(due_date: :asc).each do |task| %>
 							<% if (task.due_date - Date.today) < 0 %>
 								<tr class="over-head">
@@ -44,14 +42,15 @@
 									<td ><%= task.title %></td>
 									<td><%= Genre.find(task.genre_id).name %></td>
 									<td><%= task.body %></td>
-									<td><%= task.due_date %></td>
+									<td><%= task.due_date.strftime("%m/%d") %></td>
 									<td><%= task.person_name %></td>
 									<td>
 									<%= render "public/favorites/btn", task: task %>
 										コメント数: <%= task.post_comments.count %>
-										<%= link_to "詳細", task_path(task), class: "btn btn-primary" %>
-										<%= link_to "編集", edit_task_path(task), class: "btn btn-success" %>
-										<%= link_to "削除", task_path(task), method: :delete, "data-confirm" => "削除します。本当によろしいですか？", class: "btn btn-danger" %>
+										<%= link_to "Finished", done_path(task), method: :post, class: "btn btn-warning" %>
+										<%= link_to "Detail", task_path(task), class: "btn btn-primary" %>
+										<%= link_to "Edit", edit_task_path(task), class: "btn btn-success" %>
+										<%= link_to "Delete", task_path(task), method: :delete, "data-confirm" => "Are you sure you want to delete it?", class: "btn btn-danger" %>
 									</td>
 								</tr>
 								<% elsif(task.due_date - Date.today) <= 7 %>
@@ -60,14 +59,15 @@
 									<td ><%= task.title %></td>
 									<td><%= Genre.find(task.genre_id).name %></td>
 									<td><%= task.body %></td>
-									<td><%= task.due_date %></td>
-									<td><%= User.find(task.user_id).last_name %></td>
+									<td><%= task.due_date.strftime("%m/%d") %></td>
+									<td><%= task.person_name  %></td>
 									<td>
 									<%= render "public/favorites/btn", task: task %>
 										コメント数: <%= task.post_comments.count %>
-										<%= link_to "詳細", task_path(task), class: "btn btn-primary" %>
-										<%= link_to "編集", edit_task_path(task), class: "btn btn-success" %>
-										<%= link_to "削除", task_path(task), method: :delete, "data-confirm" => "削除します。本当によろしいですか？", class: "btn btn-danger" %>
+										<%= link_to "Finished", done_path(task), method: :post, class: "btn btn-warning" %>
+										<%= link_to "Detail", task_path(task), class: "btn btn-primary" %>
+										<%= link_to "Edit", edit_task_path(task), class: "btn btn-success" %>
+										<%= link_to "Delete", task_path(task), method: :delete, "data-confirm" => "Are you sure you want to delete it?", class: "btn btn-danger" %>
 									</td>
 								</tr>
 							<% else(task.due_date - Date.today)%>
@@ -76,25 +76,22 @@
 									<td ><%= task.title %></td>
 									<td><%= Genre.find(task.genre_id).name %></td>
 									<td><%= task.body %></td>
-									<td><%= task.due_date %></td>
-									<td><%= User.find(task.user_id).last_name %></td>
+									<td><%= task.due_date.strftime("%m/%d") %></td>
+									<td><%= task.person_name  %></td>
 									<td>
 									<%= render "public/favorites/btn", task: task %>
 										コメント数: <%= task.post_comments.count %>
-										<%= button_to 'Done', done_path(task), method: :post %>
-										<%= link_to "詳細", task_path(task), class: "btn btn-primary" %>
-										<%= link_to "編集", edit_task_path(task), class: "btn btn-success" %>
-										<%= link_to "削除", task_path(task), method: :delete, "data-confirm" => "削除します。本当によろしいですか？", class: "btn btn-danger" %>
+										<%= link_to "Finished", done_path(task), method: :post, class: "btn btn-warning" %>
+										<%= link_to "Detail", task_path(task), class: "btn btn-primary" %>
+										<%= link_to "Edit", edit_task_path(task), class: "btn btn-success" %>
+										<%= link_to "Delete", task_path(task), method: :delete, "data-confirm" => "Are you sure you want to delete it?", class: "btn btn-danger" %>
 									</td>
 								</tr>
 							<% end %>
 				 <% end %>
-		  	</tbody>
+		  		</tbody>
 			</table>
-		 </div>
+			<%= paginate @tasks %>
+		</div>
 	</div>
 </div>
-
-
-
-

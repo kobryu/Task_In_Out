@@ -1,13 +1,17 @@
 class Public::TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_q, only: [:index, :search]
+  before_action :set_q, only: [:index,  :search]
 
   def index
-    @task = Task.new
     #@tasks = Task.where(done_at:nil)
     @q = Task.where(done_at:nil).ransack(params[:q])
-    @tasks = @q.result
+    @tasks = @q.result.page(params[:page]).per(40)
   end
+
+  def new
+    @task = Task.new
+  end
+
 
   def show
     @task = Task.find(params[:id])
@@ -16,15 +20,20 @@ class Public::TasksController < ApplicationController
 
 
   def create
+    # byebug
     @tasks = current_user.tasks
     @task = Task.new(task_params)
     @task.user_id = current_user.id
-    @task.save
-    redirect_to tasks_path
+    if @task.save
+      redirect_to tasks_path
+    else
+      render 'new'
+    end
+
   end
 
   def edit
-    Task.find(params[:id])
+    @task = Task.find(params[:id])
   end
 
   def done
@@ -35,7 +44,7 @@ class Public::TasksController < ApplicationController
   end
 
   def update
-    Task.find(params[:id])
+    @task = Task.find(params[:id])
     if @task.update(task_params)
       redirect_to tasks_path, notice: "You have updated task successfully."
     else

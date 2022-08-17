@@ -1,18 +1,21 @@
-<div style="margin-top : 100px">
-	<%= form_with model: @user, url: users_update_path do |f| %>
-		<div class="field">
-			<%= f.label :email, "メールアドレス" %>
-			<%= f.text_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "email" %>
-		</div>
-		<div class="field">
-			<%= f.label :telephone_number, "電話番号" %>
-			<%= f.text_field :telephone_number, autocomplete: "telephone_number", placeholder: "電話番号", class: "content" %>
-		</div>
-		<div class="field">
-			<%= f.label :introduction, "備考" %>
-			<%= f.text_area :introduction, autocomplete: "introduction", placeholder: "備考", class: "content" %>
-		</div>
-		<%= f.submit class: 'btn btn-success' %>
-	<% end %>
-		<%= link_to "退会する", users_confirm_path, class: "btn btn-danger" %>
+<div style="margin-top : 100px"></div>
+<div class="container">
+	<h2>ユーザー情報編集</h2>
+		<%= form_with model: @user, url: users_update_path do |f| %>
+			<div class="field">
+				<%= f.label :email, "メールアドレス" %>
+				<%= f.text_field :email, autocomplete: "email", placeholder: "メールアドレス", class: "email" %>
+			</div>
+			<div class="field">
+				<%= f.label :telephone_number, "電話番号" %>
+				<%= f.text_field :telephone_number, autocomplete: "telephone_number", placeholder: "電話番号", class: "content" %>
+			</div>
+			<div class="field">
+				<%= f.label :introduction, "備考" %>
+				<%= f.text_area :introduction, autocomplete: "introduction", placeholder: "備考", class: "content" %>
+			</div>
+			<%= f.submit "更新する", class: 'btn btn-success' %>
+		<% end %>
+			<%= link_to "退会する", users_confirm_path, class: "btn btn-danger" %>
+
 </div>
